@@ -24,12 +24,12 @@ struct Snake{
 struct Snake snake;
 SDL_Point food;
 SDL_Point bonus_food;
-SDL_Point poisonous_food;  // New poisonous food point
+SDL_Point poisonous_food;  
 bool bonus_food_active = false;
-bool poisonous_food_active = false;  // Flag to check if poisonous food is active
-Uint32 poisonous_food_time = 0;  // Timer for poisonous food
+bool poisonous_food_active = false; 
+Uint32 poisonous_food_time = 0; 
 int score = 0;
-int food_eaten = 0;  // Track number of foods eaten for bonus activation
+int food_eaten = 0;
 
 SDL_Point obstacles[] = {
    {13,5},{14, 5}, {15, 5}, {16, 5},{17,5},{18,5},
@@ -178,7 +178,7 @@ void game_update(){
     int new_x = (int)snake.head_x;
     int new_y = (int)snake.head_y;
 
-    // Regular food eating logic
+   
     if(food.x == new_x && food.y == new_y){
         score ++;
         food_eaten++;
@@ -187,7 +187,7 @@ void game_update(){
         snake.speed += 0.02f;
     }
 
-    // Bonus food eating logic
+  
     if(bonus_food_active && bonus_food.x == new_x && bonus_food.y == new_y){
         score += 5;
         place_food();
@@ -195,24 +195,24 @@ void game_update(){
         bonus_food_active = false;
     }
 
-    // Poisonous food eating logic
+  
     if(poisonous_food_active && poisonous_food.x == new_x && poisonous_food.y == new_y){
         score -= 10;
         if(score < 0) {
-            snake.alive = false;  // Game over if score goes negative
+            snake.alive = false;  
         }
         poisonous_food_active = false;
     }
 
-    // Spawn bonus food after every 10 regular foods
+   
     if(food_eaten >= 4 && !bonus_food_active && !poisonous_food_active) {
         place_poisonous_food();
         poisonous_food_active = true;
-        poisonous_food_time = SDL_GetTicks();  // Set the start time for poisonous food
-        food_eaten = 0;  // Reset food eaten counter
+        poisonous_food_time = SDL_GetTicks(); 
+        food_eaten = 0; 
     }
 
-    // Deactivate poisonous food after 4 seconds
+   
     if(poisonous_food_active && SDL_GetTicks() - poisonous_food_time > 4000){
         poisonous_food_active = false;
     }
@@ -262,7 +262,7 @@ void render(SDL_Renderer * sdl_renderer, const int screen_width, const int scree
     SDL_SetRenderDrawColor(sdl_renderer, 16,21,30,255);
     SDL_RenderClear(sdl_renderer);
 
-    // Render obstacles
+  
     SDL_SetRenderDrawColor(sdl_renderer, 255, 0, 0, 255);
     for (int i = 0; i < num_obstacles; i++) {
         block.x = obstacles[i].x * block.w;
@@ -270,13 +270,12 @@ void render(SDL_Renderer * sdl_renderer, const int screen_width, const int scree
         SDL_RenderFillRect(sdl_renderer, &block);
     }
     
-    // Render regular food
+  
     SDL_SetRenderDrawColor(sdl_renderer, 255, 204, 0, 255);
     block.x = food.x * block.w;
     block.y = food.y * block.h;
     SDL_RenderFillRect(sdl_renderer, &block);
 
-    // Render bonus food
     if (bonus_food_active) {
         SDL_SetRenderDrawColor(sdl_renderer, 0, 255, 0, 255);
         block.x = bonus_food.x * block.w;
@@ -284,15 +283,15 @@ void render(SDL_Renderer * sdl_renderer, const int screen_width, const int scree
         SDL_RenderFillRect(sdl_renderer, &block);
     }
 
-    // Render poisonous food
+  
     if (poisonous_food_active) {
-        SDL_SetRenderDrawColor(sdl_renderer, 255, 0, 255, 255);  // Poisonous food color (purple)
+        SDL_SetRenderDrawColor(sdl_renderer, 255, 0, 255, 255);  
         block.x = poisonous_food.x * block.w;
         block.y = poisonous_food.y * block.h;
         SDL_RenderFillRect(sdl_renderer, &block);
     }
 
-    // Render snake
+   
     SDL_SetRenderDrawColor(sdl_renderer, snake.alive ? 0 : 255, 122, 204, 255);
     for (int i=0; i< snake.body_length; i++){
         block.x = snake.body[i].x * block.w;
