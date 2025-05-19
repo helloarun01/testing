@@ -1,4 +1,4 @@
-
+'''mermaid
 
 ---
 config:
@@ -7,7 +7,7 @@ config:
   look: neo
 ---
 
-'''mermaid
+
 classDiagram
     class App {
         +main(args: String[]) void
