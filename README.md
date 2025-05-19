@@ -80,12 +80,7 @@ classDiagram
         +draw(g: Graphics) void
         +reset() void
     }
-    class GhostColor {
-        <<enumeration>>
-        RED
-        PINK
-        SCARED
-    }
+
     App --> GameFrame : creates
     GameFrame --> GamePanel : contains
     GamePanel --> GameBoard : has-a
@@ -95,5 +90,5 @@ classDiagram
     GameBoard --> Ghost : contains *
     GameEntity <|-- PacMan : inherits
     GameEntity <|-- Ghost : inherits
-    Ghost --> GhostColor : uses
+
     ```
