@@ -1,9 +1,13 @@
+
+
 ---
 config:
   theme: neo
   layout: elk
   look: neo
 ---
+
+'''mermaid
 classDiagram
     class App {
         +main(args: String[]) void
@@ -92,3 +96,4 @@ classDiagram
     GameEntity <|-- PacMan : inherits
     GameEntity <|-- Ghost : inherits
     Ghost --> GhostColor : uses
+    '''
