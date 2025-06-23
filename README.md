@@ -1,94 +1,56 @@
+## 📘 Numerical Methods — Bisection Method Task (NMAL-01)
 
+**Assigned Date**: `22/06/2025`  
+**Task Code**: `NMAL-01`
 
 ---
-config:
-  theme: neo
-  layout: elk
-  look: neo
+
+### ✅ Task Objectives
+
+1. What could be the better approach to choose the range in the bisection method?  
+2. Apply the technique to solve a problem:  
+   - i) Traditional bisection method  
+   - ii) Improved bisection method (with automatic interval selection)  
+3. Compare performance by number of iterations  
+
 ---
 
-```mermaid
-classDiagram
-    class App {
-        +main(args: String[]) void
-    }
-    class GameFrame {
-        -tileSize: int = 32
-        -rows: int = 21
-        -cols: int = 19
-        +GameFrame()
-        +start() void
-    }
-    class GamePanel {
-        -board: GameBoard
-        -timer: Timer
-        +GamePanel(rows: int, cols: int, tileSize: int)
-        +actionPerformed(e: ActionEvent) void
-        +paintComponent(g: Graphics) void
-        +keyPressed(e: KeyEvent) void
-    }
-    class GameBoard {
-        -rows: int
-        -cols: int
-        -tileSize: int
-        -walls: Set~GameEntity~
-        -foods: Set~GameEntity~
-        -ghosts: Set~Ghost~
-        -pacman: PacMan
-        -score: int
-        -lives: int
-        -gameOver: boolean
-        -scareMode: boolean
-        -bonusFood: GameEntity
-        +GameBoard(rows: int, cols: int, tileSize: int)
-        +loadMap() void
-        +update() void
-        +draw(g: Graphics) void
-        +handleKeyPress(e: KeyEvent) void
-        +activateScareMode() void
-    }
-    class GameEntity {
-        #x: int
-        #y: int
-        #size: int
-        #oldX: int
-        #oldY: int
-        #image: Image
-        +GameEntity(x: int, y: int, size: int)
-        +setImage(path: String) void
-        +draw(g: Graphics) void
-        +collidesWith(other: GameEntity) boolean
-    }
-    class PacMan {
-        -dx: int
-        -dy: int
-        -pacmanImages: Image[]
-        +PacMan(x: int, y: int, size: int)
-        +setDirection(dir: char) void
-        +move() void
-        +undo() void
-        +draw(g: Graphics) void
-    }
-    class Ghost {
-        -dx: int
-        -dy: int
-        -ghostColor: GhostColor
-        -isScared: boolean
-        +Ghost(x: int, y: int, size: int, color: GhostColor)
-        +move(walls: Set~GameEntity~) void
-        +setScared(scared: boolean) void
-        +draw(g: Graphics) void
-        +reset() void
-    }
+### 🔍 1. Choosing a Better Range for Bisection
 
-    App --> GameFrame : creates
-    GameFrame --> GamePanel : contains
-    GamePanel --> GameBoard : has-a
-    GamePanel --> Timer : triggers
-    GameBoard --> GameEntity : contains *
-    GameBoard --> PacMan : has-a
-    GameBoard --> Ghost : contains *
-    GameEntity <|-- PacMan : inherits
-    GameEntity <|-- Ghost : inherits
+#### 📌 Traditional Approach
+- Manually pick an interval \([a, b]\)
+- Check if \( f(a) \cdot f(b) < 0 \)
+- Success depends on lucky guessing
 
-    ```
+#### 💡 Improved Approach
+- Use a graph or automate interval detection:
+  - Loop over \([x, x + \delta]\)
+  - Check if \( f(x) \cdot f(x + \delta) < 0 \)
+  - If yes, use \([x, x + \delta]\) as the root interval
+
+✅ This avoids guesswork and ensures a valid range is found.
+
+---
+
+### 🧪 2. Implementation
+
+#### i) Traditional Bisection
+- Fixed user-defined interval
+- Stops when error \( < \epsilon \)
+
+#### ii) Improved Bisection
+- Automatically detects valid interval before applying bisection
+- More reliable when root position is unknown
+
+---
+
+### ⚙️ Sample Test
+
+- Enter start of the interval: 0
+- Enter end of the interval: 5
+- Enter the step size for scanning: 0.1
+- Enter the error tolerance: 0.001
+- Traditional bisection root: 1.5216064453125, iterations: 12
+-Improved bisection root: 1.5210937500000004, iterations: 6
+
+[Display Text](NAML-01.py)
