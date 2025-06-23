@@ -1,7 +1,7 @@
 ## 📘 Numerical Methods — Bisection Method Task (NMAL-01)
 
 **Assigned Date**: `22/06/2025`  
-**Task Code**: `NMAL-01`
+**Task Code**: [Display Text](NAML-01.py)
 
 ---
 
@@ -51,6 +51,6 @@
 - Enter the step size for scanning: 0.1
 - Enter the error tolerance: 0.001
 - Traditional bisection root: 1.5216064453125, iterations: 12
--Improved bisection root: 1.5210937500000004, iterations: 6
+- Improved bisection root: 1.5210937500000004, iterations: 6
 
-[Display Text](NAML-01.py)
+
